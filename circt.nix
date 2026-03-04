@@ -51,7 +51,6 @@ in stdenv.mkDerivation {
     ./patches/circt-mlir-tblgen-path.patch
     ./patches/circt-mlir-runner-target.patch
     ./patches/circt-install-dir.patch
-    ./patches/circt-install-includes.patch
     ./patches/circt-lit-dylib-paths.patch
   ];
   postPatch = ''

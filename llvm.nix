@@ -34,7 +34,7 @@ let
       "${date}_${rev}";
   version = mkVer llvm-submodule-src;
 
-  release_version = "22.0.0";
+  release_version = "23.0.0";
 
   commonExtraCMakeFlags = [
     (lib.cmakeBool "LLVM_BUILD_UTILS" true)
@@ -51,7 +51,13 @@ let
 
   # New LLVM package set using the pinned source.
   baseLLVMPkgs = llvmPackages.override {
+    version = release_version;
     inherit monorepoSrc;
+    patchesFn = patches: patches // {
+      "clang/gnu-install-dirs.patch" = [
+        { path = ./patches/nixpkgs-llvm-overrides; }
+      ];
+    };
     officialRelease = null;
     gitRelease = {
       rev = llvm-submodule-src.rev or "dirty";
